@@ -1,0 +1,217 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+#container {
+    justify-content: space-between;
+    width: 100%;
+    margin: 0 auto;
+}
+
+h1 {
+    font-family: "Playfair Display", 'Serif';
+    text-align: center;
+}
+
+#header {
+    flex-direction: column;
+    background-color: #f4f4f4;
+    height: 200px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+#selectFormDiv {
+    display: flex;
+    justify-content: space-between;
+}
+
+#searchbarForm {
+    display: flex;
+    align-items: center;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 600px;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#searchbar {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #333;
+    background-color: transparent;
+}
+
+#searchbar::placeholder {
+    color: #aaa;
+}
+
+#searchbarBtn {
+    background-color: #95a0a8;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#searchbarBtn:hover {
+    background-color: #005bb5;
+    transform: scale(1.1);
+}
+
+#selectFormOne {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 200px;
+    height: 0px;
+}
+
+#category, #price {
+    font-family: "Playfair Display", serif;
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: #333;  
+}
+
+#categoryFilter, #priceFilter {
+    font-family: "Playfair Display", serif;
+    font-size: 16px;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 100%; 
+    background-color: #fff;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    color: #333;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+#categoryFilter:hover, #priceFilter:hover, #categoryFilter:focus, #priceFilter:focus {
+    border-color: #005bb5;
+    outline: none; 
+    box-shadow: 0 0 5px rgba(0, 91, 181, 0.6); 
+}
+
+#categoryFilter option, #priceFilter option {
+    font-family: "Playfair Display", serif;
+    font-size: 16px;
+    padding: 10px;
+    color: #333;
+    background-color: #fff;
+}
+
+#selectFormTwo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
+    height: 0px;
+    margin-left: 15rem;
+}
+
+#priceHighLow, #ratingHighLow {
+    font-family: "Playfair Display", serif;
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: #333;  
+}
+
+#priceHighLowSort, #ratingHighLowSort {
+    font-family: "Playfair Display", serif;
+    font-size: 16px;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 100%; 
+    background-color: #fff;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    color: #333;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+#priceHighLowSort:hover, #ratingHighLowSort:hover, #priceHighLowSort:focus, #ratingHighLowSort:focus {
+    border-color: #005bb5;
+    outline: none; 
+    box-shadow: 0 0 5px rgba(0, 91, 181, 0.6);
+}
+
+#priceHighLowSort option, #ratingHighLowSort option {
+    font-family: "Playfair Display", serif;
+    font-size: 16px;
+    padding: 10px;
+    color: #333;
+    background-color: #fff;
+}
+
+h3 {
+    text-align: center;
+    height: 44px;
+    margin: 20px 0;
+    font-size: 20px;
+}
+
+#productContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 250px;
+    margin: auto;
+    text-align: center;
+    font-family: arial;
+}
+
+.card img {
+    width: 250px;
+    height: 250px;
+}
+
+.discountedPrice {
+    color: grey;
+    font-size: 22px;
+}
+
+.card button {
+    border: none;
+    outline: 0;
+    padding: 12px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.card button:hover {
+    font-size: 1.2rem;
+    opacity: 0.7;
+}

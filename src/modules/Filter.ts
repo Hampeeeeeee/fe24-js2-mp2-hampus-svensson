@@ -37,7 +37,7 @@ const sortByPrice = (products:Product[], order: 'lowToHighPrice' | 'highToLowPri
 };
 
 // funktion som sorterar produkterna beroende på omdöme, lågt till högt eller högt till lågt.
-const sortByRating = (products: Product[], order: 'lowToHighRating' | 'highToLowRating'= 'lowToHighRating'): Product[] => {
+const sortByRating = (products: Product[], order: 'lowToHighRating' | 'highToLowRating'= 'lowToHighRating'):Product[] => {
     return [...products].sort((a, b) => {
         if (order === 'lowToHighRating') {
             return a.rating - b.rating; 

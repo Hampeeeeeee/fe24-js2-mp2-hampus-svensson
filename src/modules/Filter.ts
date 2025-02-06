@@ -12,40 +12,16 @@ const filterByPrice = (products:Product[], priceRange:string):Product[] => {
     return products.filter(product => {
         const displayedPrice = product.discountedPrice();
 
-        if (priceRange === "< $50") {
-            return displayedPrice < 50;
-        }
-
-        else if (priceRange === "> $50") {
-            return displayedPrice > 50;
-        }
-
-        return false;
+        return priceRange === "< $50" ? displayedPrice < 50 : displayedPrice > 50;
     });
 };
 
 // funktion som sorterar produkterna beroende på pris, lågt till högt eller högt till lågt.
-const sortByPrice = (products:Product[], order: 'lowToHighPrice' | 'highToLowPrice' = 'lowToHighPrice'):Product[] => {
-    return [...products].sort((a, b) => {
-        if (order === 'lowToHighPrice') {
-            return a.discountedPrice() - b.discountedPrice(); 
-        } else if (order === 'highToLowPrice') {
-            return b.discountedPrice() - a.discountedPrice(); 
-        }
-        return 0;
-    });
-};
+const sortByPrice = (products: Product[], order: 'lowToHighPrice' | 'highToLowPrice' = 'lowToHighPrice'): Product[] => 
+    [...products].sort((a, b) => order === 'lowToHighPrice' ? a.discountedPrice() - b.discountedPrice() : b.discountedPrice() - a.discountedPrice());
 
 // funktion som sorterar produkterna beroende på omdöme, lågt till högt eller högt till lågt.
-const sortByRating = (products: Product[], order: 'lowToHighRating' | 'highToLowRating'= 'lowToHighRating'):Product[] => {
-    return [...products].sort((a, b) => {
-        if (order === 'lowToHighRating') {
-            return a.rating - b.rating; 
-        } else if (order === 'highToLowRating') {
-            return b.rating - a.rating; 
-        }
-        return 0;
-    });
-};
+const sortByRating = (products: Product[], order: 'lowToHighRating' | 'highToLowRating' = 'lowToHighRating'): Product[] => 
+    [...products].sort((a, b) => order === 'lowToHighRating' ? a.rating - b.rating : b.rating - a.rating);
 
 export {filterByCategory, filterByPrice, sortByPrice, sortByRating}

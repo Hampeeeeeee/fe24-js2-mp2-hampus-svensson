@@ -1,4 +1,4 @@
-import { Product } from "./Product.ts";
+import { Product, ProductInterface } from "./Product.ts";
 
 // funktion som hanterar API/URL'n. Skapar en array med alla produkterna och returnerar dessa.
 export async function getProducts(): Promise<Product[]> {
@@ -9,8 +9,7 @@ export async function getProducts(): Promise<Product[]> {
         }
         const data = await response.json();
 
-        // Fråga Clara om varför product är markerad!!!
-        const products: Product[] = data.products.map(product => {
+        const products: Product[] = data.products.map((product:ProductInterface) => {
             return new Product(
                 product.title,
                 product.images,
@@ -25,6 +24,6 @@ export async function getProducts(): Promise<Product[]> {
         return products;
     } catch (error) {
         console.error('Error fetching products:', error);
-        return [];
+        throw new Error('Could not fetch products. Please try again later.')
     }
 }

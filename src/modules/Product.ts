@@ -1,38 +1,40 @@
 // klass för product med alla variablar som behövs.
 export interface ProductInterface {
     title: string;
-    imageUrl: string;
+    images: string[];
     stock: number;
     price: number;
     discountPercentage: number;
     category: string;
     rating: number;
-    discountedPrice: () => number;
+    discountedPrice(): number;
 }
 
 export class Product implements ProductInterface {
-    public title: string;
-    public imageUrl: string;
-    public stock: number;
-    public price: number;
-    public discountPercentage: number;
-    public category: string;
-    public rating: number;
-
-    constructor(title:string, imageUrl:string, stock:number, price:number, discountPercentage:number, category:string, rating:number) {
-        this.title = title;
-        this.imageUrl = imageUrl;
-        this.stock = stock;
-        this.price = price;
-        this.discountPercentage = discountPercentage;
-        this.category = category;
-        this.rating = rating;
+    
+    constructor(
+        public title: string,
+        public images: string[],
+        public stock: number,
+        public price: number,
+        public discountPercentage: number,
+        public category: string,
+        public rating: number
+    ){
+        
     }
 
     // funktion som loggar alla variablar.
     displayInfo():void {
-        console.log(`Name: ${this.title} - ${this.imageUrl} - Amount: ${this.stock} - Price: $${this.price} - 
-                    Discount: ${this.discountPercentage}% - Category: ${this.category} - Rating: ${this.rating}`);
+        console.table({
+            Name: this.title,
+            Images: this.images.join(", "),
+            Stock: this.stock,
+            Price: `$${this.price}`,
+            Discount: `${this.discountPercentage}%`,
+            Category: this.category,
+            Rating: this.rating,
+        });
     }
 
     // funktion som räknar ut det rabatterade priset.
@@ -41,8 +43,8 @@ export class Product implements ProductInterface {
     }
 
     // funktion som uppdaterar lagersaldot.
-    updatePurse():void {
-        this.stock = Math.max(0, this.stock - 1);
+    updateStock():void {
+        if (this.stock > 0) this.stock--;
     }
 
     // funktion som skapar ett produktkort och sedan returnerar det.
@@ -54,7 +56,7 @@ export class Product implements ProductInterface {
         title.innerText = this.title;
 
         const img = document.createElement('img');
-        img.src = this.imageUrl;
+        img.src = this.images[0];
         img.alt = `Image of ${this.title}`;
         
         const stock = document.createElement('p');
@@ -66,7 +68,7 @@ export class Product implements ProductInterface {
         const addToCartBtn = document.createElement('button');
         addToCartBtn.innerText = "Add to Cart";
         addToCartBtn.addEventListener('click', () => {
-            this.updatePurse();
+            this.updateStock();
             stock.innerHTML = `<b>Stock: ${this.stock}</b>`;
         });
         productCard.append(title, img, stock, discountedPrice, addToCartBtn);

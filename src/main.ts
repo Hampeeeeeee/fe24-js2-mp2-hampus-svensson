@@ -4,7 +4,6 @@ import { filterByCategory, filterByPrice, sortByPrice, sortByRating } from "./mo
 
 // funktion som hämtar produkterna och kör olika filter på produkterna.
 getProducts().then((products:Product[]) => {
-    console.log(products)
     filterDropdown(products);
     displayProducts(products);
 });
@@ -24,56 +23,90 @@ function filterDropdown(products: Product[]) {
     type SortOrderPrice = "lowToHighPrice" | "highToLowPrice";
     type SortOrderRating = "lowToHighRating" | "highToLowRating";
     
+    // Hämtar dropdowns från DOM
     const filterCategoryDropdown = document.getElementById('categoryFilter') as HTMLSelectElement;
-    const filterPriceDowndown = document.getElementById('priceFilter') as HTMLSelectElement;
+    const filterPriceDropdown = document.getElementById('priceFilter') as HTMLSelectElement;
     const sortPriceDropdown = document.getElementById('priceHighLowSort') as HTMLSelectElement;
     const sortRatingDropdown = document.getElementById('ratingHighLowSort') as HTMLSelectElement;
 
+    // Lyssnar på förändringar i kategori-filter
     filterCategoryDropdown.addEventListener('change', () => {
         const selectedCategory = filterCategoryDropdown.value;
-        const selectedFilterPrice = filterPriceDowndown.value;
+        const selectedFilterPrice = filterPriceDropdown.value;
+        const selectedSortPrice = sortPriceDropdown.value as SortOrderPrice;
+        const selectedSortRating = sortRatingDropdown.value as SortOrderRating;
 
-        console.log('Selected category:', selectedCategory);
-        console.log('Selected price:', selectedFilterPrice);
+        // Filtrera först på kategori
+        let filteredProducts = filterByCategory(products, selectedCategory);
 
-        const filteredProducts = filterByCategory(products, selectedCategory);
-        console.log('Filtered Products:', filteredProducts);
+        // Filtrera därefter på pris
+        filteredProducts = filterByPrice(filteredProducts, selectedFilterPrice);
+
+        // Sortera efter pris eller rating beroende på dropdown-värde
+        if (selectedSortPrice) {
+            filteredProducts = sortByPrice(filteredProducts, selectedSortPrice);
+        } else if (selectedSortRating) {
+            filteredProducts = sortByRating(filteredProducts, selectedSortRating);
+        }
+
+        // Visa de filtrerade och sorterade produkterna
         displayProducts(filteredProducts);
     });
 
-    filterPriceDowndown.addEventListener('change', () => {
+    // Lyssnar på förändringar i pris-filter
+    filterPriceDropdown.addEventListener('change', () => {
         const selectedCategory = filterCategoryDropdown.value;
-        const selectedFilterPrice = filterPriceDowndown.value;
+        const selectedFilterPrice = filterPriceDropdown.value;
+        const selectedSortPrice = sortPriceDropdown.value as SortOrderPrice;
+        const selectedSortRating = sortRatingDropdown.value as SortOrderRating;
 
-        console.log('Selected Category:', selectedCategory);
-        console.log('Selected Price:', selectedFilterPrice);
+        // Filtrera först på kategori och pris
+        let filteredProducts = filterByCategory(products, selectedCategory);
+        filteredProducts = filterByPrice(filteredProducts, selectedFilterPrice);
 
-        const filteredByCategory = filterByCategory(products, selectedCategory);
-        const filteredByPrice = filterByPrice(filteredByCategory, selectedFilterPrice);
-        console.log('Filtered Products:', filteredByPrice);
-        displayProducts(filteredByPrice);
+        // Sortera därefter efter pris eller rating beroende på vad som är valt
+        if (selectedSortPrice) {
+            filteredProducts = sortByPrice(filteredProducts, selectedSortPrice);
+        } else if (selectedSortRating) {
+            filteredProducts = sortByRating(filteredProducts, selectedSortRating);
+        }
+
+        // Visa de filtrerade och sorterade produkterna
+        displayProducts(filteredProducts);
     });
 
+    // Lyssnar på förändringar i sortering efter pris
     sortPriceDropdown.addEventListener('change', () => {
-        const sortedPrice = sortPriceDropdown.value as SortOrderPrice;
+        const selectedSortPrice = sortPriceDropdown.value as SortOrderPrice;
+        const selectedCategory = filterCategoryDropdown.value;
+        const selectedFilterPrice = filterPriceDropdown.value;
 
-        console.log('Sorted price:', sortedPrice);
+        // Filtrera på kategori och pris först
+        let filteredProducts = filterByCategory(products, selectedCategory);
+        filteredProducts = filterByPrice(filteredProducts, selectedFilterPrice);
 
-        const sortedByPrice = sortByPrice(products, sortedPrice);
-        console.log('Sorted by price:', sortedByPrice);
+        // Sortera efter pris
+        filteredProducts = sortByPrice(filteredProducts, selectedSortPrice);
 
-        displayProducts(sortedByPrice);
+        // Visa de filtrerade och sorterade produkterna
+        displayProducts(filteredProducts);
     });
 
+    // Lyssnar på förändringar i sortering efter rating
     sortRatingDropdown.addEventListener('change', () => {
-        const sortedRating = sortRatingDropdown.value as SortOrderRating;
+        const selectedSortRating = sortRatingDropdown.value as SortOrderRating;
+        const selectedCategory = filterCategoryDropdown.value;
+        const selectedFilterPrice = filterPriceDropdown.value;
 
-        console.log('Sorted rating:', sortedRating);
+        // Filtrera på kategori och pris först
+        let filteredProducts = filterByCategory(products, selectedCategory);
+        filteredProducts = filterByPrice(filteredProducts, selectedFilterPrice);
 
-        const sortedByRating = sortByRating(products, sortedRating);
-        console.log('Sorted by rating:', sortedByRating);
+        // Sortera efter rating
+        filteredProducts = sortByRating(filteredProducts, selectedSortRating);
 
-        displayProducts(sortedByRating);
+        // Visa de filtrerade och sorterade produkterna
+        displayProducts(filteredProducts);
     });
 }
 
